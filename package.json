@@ -1,0 +1,20 @@
+{
+  "name": "employee-generator",
+  "version": "1.0.0",
+  "description": "Package for employee generator.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Isabella",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "inquirer": "^6.3.1",
+    "jest": "^24.8.0"
+  }
+}
