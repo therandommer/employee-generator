@@ -16,7 +16,7 @@ npm install
 ```
 * After the installation is complete, you should see the following in your console:
 
-![installation](Submission/installation.png)
+![installation](submission/installation.png)
 
 * Verify that the "node_modules" folder now exists in your files.
 
