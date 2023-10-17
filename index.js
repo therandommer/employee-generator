@@ -10,9 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
-
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
-//gathers the user prompts for the HTML file
+//prompt to add managers
 const managerPrompt = () => {
     return inquirer.prompt([
         {
@@ -46,6 +44,39 @@ const managerPrompt = () => {
     });
 }
 
+//prompt to add engineers
+const engineerPrompt = () => {
+    return inquirer.prompt([
+        {
+
+        }
+    ])
+    .catch((error) => {
+        if(error.isTtyError)
+        {
+            console.error("Prompt cannot be rendered in current environment, please try again.");
+        }
+        else
+            console.error(`Something went wrong \n + error`);
+    });
+}
+
+//prompt to add interns
+const internPrompt = () => {
+    return inquirer.prompt([
+        {
+
+        }
+    ])
+    .catch((error) => {
+        if(error.isTtyError)
+        {
+            console.error("Prompt cannot be rendered in current environment, please try again.");
+        }
+        else
+            console.error(`Something went wrong \n + error`);
+    });
+}
 const menuPrompt = () => {
     return inquirer.prompt([ //overall menu item to be called multiple times.
         {
@@ -79,7 +110,20 @@ const start = async () =>
 
     while(needsEmployees) //will continue to ask the user what they would like to add, or if they would like to finish
     {
-        if()
+        const userChoice = await menuPrompt();
+        if(userChoice.menu === "Engineer")
+        {
+            console.log("Engineer selected");
+        }
+        if(userChoice.menu === "Intern")
+        {
+            console.log("Intern selected");
+        }
+        if(userChoice.menu === "Exit") //will set needsEmployees to false to exit the loop of asking for more employees
+        {
+            console.log("Program Exit");
+            needsEmployees = false;
+        }
     }
 }
 
