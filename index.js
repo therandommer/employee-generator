@@ -133,23 +133,26 @@ const menuPrompt = () => {
 
 const start = async () => {
     const managerAnswers = await managerPrompt(); //won't progress until the user finishes their prompts.
+    const manager = new Manager(managerAnswers.managerName, managerAnswers.managerID, managerAnswers.managerEmail, managerAnswers.managerOffice);
     console.log(managerAnswers);
     let needsEmployees = true; //will loop the following answer getter until the user no longer needs employees.
-    let engineerAnswers = []; //array of engineers in the team
-    let internAnswers = []; //array of interns in the team
+    let engineerEmployees = []; //array of engineers in the team
+    let internEmployees = []; //array of interns in the team
 
     while (needsEmployees) //will continue to ask the user what they would like to add, or if they would like to finish
     {
         const userChoice = await menuPrompt();
         if (userChoice.menu === "Engineer") {
             console.log("Engineer selected");
-            const tmpEngineerAnswers = await engineerPrompt();
-            engineerAnswers.push(tmpEngineerAnswers);//pushes the answers to the engineer array
+            const engineerAnswers = await engineerPrompt();
+            const newEngineer = new Engineer(engineerAnswers.engineerName, engineerAnswers.engineerID, engineerAnswers.engineerEmail, engineerAnswers.engineerGithub);
+            engineerEmployees.push(newEngineer);//pushes the answers to the engineer array
         }
         else if (userChoice.menu === "Intern") {
             console.log("Intern selected");
-            const tmpInternAnswers = await internPrompt();
-            internAnswers.push(tmpInternAnswers);//pushes the answers to the intern array
+            const internAnswers = await internPrompt();
+            const newIntern = new Intern(internAnswers.internName, internAnswers.internID, internAnswers.internEmail, internAnswers.internSchool);
+            internEmployees.push(newIntern);//pushes the answers to the intern array
         }
         else if (userChoice.menu === "Exit") //will set needsEmployees to false to exit the loop of asking for more employees
         {
@@ -157,6 +160,14 @@ const start = async () => {
             needsEmployees = false;
         }
     }
+
+    //TODO: Call generate logic
+    const team = manager + engineerEmployees + internEmployees;
+    if(!fs.existsSync(OUTPUT_DIR))
+    {
+        fs.mkdirSync(OUTPUT_DIR); //creating the output file
+    }
+    fs.writeFileSync(outputPath, render(team), utf-8); //writes data to the specified output path
 }
 
 start(); //initialise the script
